@@ -12,10 +12,9 @@ exports.userDataPut = async (req, res) => {
             expiresIn: '1d'
         })
         res.status(200).send({
-            accessToken,
-            result
+            accessToken
         })
-        console.log(result,accessToken)
+        
     } catch (error) {
         console.log(error)
     }

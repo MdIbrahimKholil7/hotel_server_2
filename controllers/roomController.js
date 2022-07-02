@@ -26,9 +26,13 @@ exports.getSingleRoom = async (req, res) => {
 // get search room 
 exports.getSearchRoom = async (req, res) => {
     const room = req.query.room
+    console.log(req.headers.authorization)
     try {
         const result = await Room.find({ city: room })
-        res.send(result)
+        res.status(200).send({
+            result,
+            message:'Success'
+        })
     } catch (err) {
         console.log(err)
     }
