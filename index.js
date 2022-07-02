@@ -4,6 +4,7 @@ const app = express()
 const port = process.env.PORT || 5000
 const cors = require('cors');
 const roomsApi=require('./api/roomsApi.js')
+const userApi=require('./api/userApi.js')
 require('dotenv').config()
 
 // middleware 
@@ -31,7 +32,7 @@ run()
 
 // set api 
 app.use('/getRoom',roomsApi)
-
+app.use('/user',userApi)
 app.get('/', async (req, res) => {
     res.send('Server running')
 })

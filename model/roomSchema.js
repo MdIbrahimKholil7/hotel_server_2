@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const rate=4
 const roomSchema = mongoose.Schema({
     city: {
         require: true,

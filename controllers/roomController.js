@@ -18,7 +18,6 @@ exports.getSingleRoom = async (req, res) => {
     try {
         const result = await Room.findById({_id:req.params.id})
         res.send(result)
-        console.log(result)
     } catch (err) {
         console.log(err)
     }
@@ -27,10 +26,8 @@ exports.getSingleRoom = async (req, res) => {
 // get search room 
 exports.getSearchRoom = async (req, res) => {
     const room = req.query.room
-    console.log(room)
     try {
         const result = await Room.find({ city: room })
-        console.log(result)
         res.send(result)
     } catch (err) {
         console.log(err)
@@ -40,7 +37,6 @@ exports.getSearchRoom = async (req, res) => {
 exports.updateRoom = async (req, res) => {
     try {
         const result = await Room.updateMany({ roomType: /room/i }, { $set: { ratings: 5 } }, { upsert: true, setDefaultsOnInsert: true })
-        console.log(result)
         res.send(result)
     } catch (err) {
         console.log(err)
@@ -48,8 +44,6 @@ exports.updateRoom = async (req, res) => {
 }
 // post room 
 exports.postRoom = async (req, res) => {
-    console.log('from body', req.body)
     const room = new Room(req.body)
     const result = await room.save()
-    console.log(result)
 }
