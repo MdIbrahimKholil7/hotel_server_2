@@ -12,11 +12,33 @@ exports.getAllRoom = async (req, res) => {
     }
 }
 
+// get room count 
+exports.getRoomCount = async (req, res) => {
+
+    try {
+        const result = await Room.count()
+        res.send({ result })
+    } catch (err) {
+        console.log(err)
+    }
+}
+//get all room
+exports.getRoomByPagination = async (req, res) => {
+    try {
+        const page = +req.query.page
+        const size = +req.query.size
+        const result = await Room.find().skip(page * size).limit(size)
+        res.send(result)
+    } catch (err) {
+        console.log(err)
+        res.send({ status: 503, message: 'Server crush' })
+    }
+}
 // get room by id 
 exports.getSingleRoom = async (req, res) => {
     console.log()
     try {
-        const result = await Room.findById({_id:req.params.id})
+        const result = await Room.findById({ _id: req.params.id })
         res.send(result)
     } catch (err) {
         console.log(err)
@@ -31,7 +53,7 @@ exports.getSearchRoom = async (req, res) => {
         const result = await Room.find({ city: room })
         res.status(200).send({
             result,
-            message:'Success'
+            message: 'Success'
         })
     } catch (err) {
         console.log(err)

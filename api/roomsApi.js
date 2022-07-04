@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllRoom, postRoom, getSearchRoom, updateRoom, getSingleRoom } = require('../controllers/roomController');
+const { getAllRoom, postRoom, getSearchRoom, updateRoom, getSingleRoom, getRoomCount, getRoomByPagination } = require('../controllers/roomController');
 const { verifyJwt } = require('../jwtToken/jwtToken');
 const router=express.Router()
 
@@ -7,6 +7,10 @@ const router=express.Router()
 router.get('/',getAllRoom)
 // get room by id 
 router.get('/room/:id',getSingleRoom)
+// get room count 
+router.get('/getRoomCount',getRoomCount)
+// get all room  
+router.get('/getRoomByPagination',getRoomByPagination)
 // get search room 
 router.get('/room',verifyJwt,getSearchRoom)
 router.put('/room',updateRoom)
