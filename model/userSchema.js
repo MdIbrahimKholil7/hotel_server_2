@@ -5,6 +5,7 @@ const userSchema = mongoose.Schema({
         type: String
     },
     admin: Boolean,
+    userImg:String,
     date: {
         type: Date,
         default: Date.now()

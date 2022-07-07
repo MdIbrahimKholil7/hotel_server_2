@@ -1,7 +1,13 @@
 const express = require('express');
-const { userDataPut } = require('../controllers/userController');
+const { userDataPut, getUserData, paymentGateway } = require('../controllers/userController');
+const { verifyJwt } = require('../jwtToken/jwtToken');
 const router=express.Router()
 
-router.put('/user-token',userDataPut)
 
+// get user data 
+router.get('/user-data',getUserData)
+// put user data 
+router.put('/user-token',userDataPut)
+//post data for payment gateway 
+router.post('/payment',verifyJwt,paymentGateway)
 module.exports=router
