@@ -6,6 +6,11 @@ const userSchema = mongoose.Schema({
     },
     admin: Boolean,
     userImg:String,
+    transactionId:String,
+    roomBook:Boolean,
+    roomDetails:{
+
+    },
     date: {
         type: Date,
         default: Date.now()

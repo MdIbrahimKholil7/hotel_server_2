@@ -20,14 +20,14 @@ const roomSchema = mongoose.Schema({
         require: true,
         type: String
     },
-    ratings:Number,
-   date:{
-    type:Date,
-    default:Date.now()
-   }
+    ratings: Number,
+    booked: Boolean,
+    email: String,
+    date: {
+        type: Date,
+        default: Date.now()
+    }
 }
 )
 
-
-
-module.exports=roomSchema
+module.exports = roomSchema

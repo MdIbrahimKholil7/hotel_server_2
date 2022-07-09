@@ -1,8 +1,14 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken')
 const userSchema = require('../model/userSchema')
-const User = mongoose.model('user', userSchema)
-const stripe = require('stripe')(`sk_test_51L112oK2utpV7xig0jOmHp2eoSoktIhtmAJ1oCJtV3mM7yYI7w1e3NKQYKkPJqViX4Ihblcenmf1Aag3cye4Ln0o00AKqnzh4A`);
+const User = new mongoose.model('user', userSchema)
+const roomSchema = require('../model/roomSchema')
+const Room = new mongoose.model('room', roomSchema)
+const orderSchema = require('../model/orderSchema')
+const Order = new mongoose.model('order', orderSchema)
+
+const stripe = require('stripe')
+    (`sk_test_51L112oK2utpV7xig0jOmHp2eoSoktIhtmAJ1oCJtV3mM7yYI7w1e3NKQYKkPJqViX4Ihblcenmf1Aag3cye4Ln0o00AKqnzh4A`);
 
 // get user data 
 exports.getUserData = async (req, res) => {
@@ -32,15 +38,34 @@ exports.userDataPut = async (req, res) => {
     }
 }
 
+// post room booked 
+exports.userBookedRoom = async (req, res) => {
+    try {
+        console.log(req.body)
+        const details= req.body
+        const {transactionId,roomDetails,email}=details
+        const result1=await User.updateOne({email}, { $set: { transactionId: details?.transactionId } }, { upsert: true, setDefaultsOnInsert: true })
+        const result2=await Room.findByIdAndUpdate({_id:details?.roomDetails?._id},{$set:{booked:true,email}}, { upsert: true, setDefaultsOnInsert: true })
+        const result3=await Order.updateOne({email},{$set:{transactionId,email,paid:true,roomType:roomDetails?.roomType}}, { upsert: true, setDefaultsOnInsert: true })
+
+        console.log('result 1',result1)
+        console.log('result 2',result2)
+        console.log('result 3',result3)
+        res.status(200).send(result1)
+
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 // post data for payment gateway 
 exports.paymentGateway = async (req, res) => {
     try {
-        const { amount:price } = req.body
+        const { amount: price } = req.body
         console.log(price)
         if (price) {
             const amount = price * 100
-            const paymentIntent =await stripe.paymentIntents.create({
+            const paymentIntent = await stripe.paymentIntents.create({
                 amount,
                 currency: 'usd',
                 payment_method_types: [
