@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllRoom, postRoom, getSearchRoom, updateRoom, getSingleRoom, getRoomCount, getRoomByPagination } = require('../controllers/roomController');
+const { getAllRoom, postRoom, getSearchRoom, updateRoom, getSingleRoom, getRoomCount, getRoomByPagination, getBookRoom } = require('../controllers/roomController');
 const { verifyJwt } = require('../jwtToken/jwtToken');
 const router=express.Router()
 
@@ -15,5 +15,8 @@ router.get('/getRoomByPagination',getRoomByPagination)
 router.get('/room',verifyJwt,getSearchRoom)
 router.put('/room',updateRoom)
 router.post('/',postRoom)
+
+// get search room 
+router.get('/book-room',getBookRoom)
 
 module.exports=router

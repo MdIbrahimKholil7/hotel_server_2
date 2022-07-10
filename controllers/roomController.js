@@ -36,7 +36,6 @@ exports.getRoomByPagination = async (req, res) => {
 }
 // get room by id 
 exports.getSingleRoom = async (req, res) => {
-    console.log()
     try {
         const result = await Room.findById({ _id: req.params.id })
         res.send(result)
@@ -48,7 +47,6 @@ exports.getSingleRoom = async (req, res) => {
 // get search room 
 exports.getSearchRoom = async (req, res) => {
     const room = req.query.room
-    console.log(req.headers.authorization)
     try {
         const result = await Room.find({ city: room })
         res.status(200).send({
@@ -72,4 +70,17 @@ exports.updateRoom = async (req, res) => {
 exports.postRoom = async (req, res) => {
     const room = new Room(req.body)
     const result = await room.save()
+}
+
+// get book room 
+exports.getBookRoom=async(req,res)=>{
+    try{
+        const email=req.query.email
+        console.log(req.query)
+        const result=await Room.find({email})
+        res.send(result)
+        console.log(result)
+    }catch(error){
+        console.log(error)
+    }
 }

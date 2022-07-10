@@ -8,9 +8,9 @@ const userSchema = mongoose.Schema({
     userImg:String,
     transactionId:String,
     roomBook:Boolean,
-    roomDetails:{
-
-    },
+    phone:Number,
+    profession:String,
+    address:String,
     date: {
         type: Date,
         default: Date.now()

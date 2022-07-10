@@ -1,5 +1,5 @@
 const express = require('express');
-const { userDataPut, getUserData, paymentGateway, userBookedRoom } = require('../controllers/userController');
+const { userDataPut, getUserData, paymentGateway, userBookedRoom, updateUserData } = require('../controllers/userController');
 const { verifyJwt } = require('../jwtToken/jwtToken');
 const router=express.Router()
 
@@ -12,4 +12,6 @@ router.put('/user-token',userDataPut)
 router.post('/payment',verifyJwt,paymentGateway)
 //post room booked data 
 router.post('/user-roomBooked',userBookedRoom)
+// update user data 
+router.put(`/put-userInformation`,updateUserData)
 module.exports=router
