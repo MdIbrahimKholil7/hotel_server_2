@@ -2,10 +2,19 @@ const mongoose = require('mongoose');
 const roomSchema = require('../model/roomSchema')
 const Room = new mongoose.model('room', roomSchema)
 
-// get all home room 
+// get home room 
 exports.getAllRoom = async (req, res) => {
     try {
         const result = await Room.find({}).limit(6)
+        res.send(result)
+    } catch (err) {
+        console.log(err)
+    }
+}
+// get home room 
+exports.getAllRooms = async (req, res) => {
+    try {
+        const result = await Room.find({})
         res.send(result)
     } catch (err) {
         console.log(err)
@@ -76,10 +85,27 @@ exports.postRoom = async (req, res) => {
 exports.getBookRoom=async(req,res)=>{
     try{
         const email=req.query.email
-        console.log(req.query)
         const result=await Room.find({email})
         res.send(result)
-        console.log(result)
+    }catch(error){
+        console.log(error)
+    }
+}
+// get room count 
+exports.getAllRoomCount=async(req,res)=>{
+    try{
+        const result=await Room.find({}).count()
+        res.send({result})
+    }catch(error){
+        console.log(error)
+    }
+}
+
+// get book room count
+exports.getBookedRoomCount=async(req,res)=>{
+    try{
+        const result=await Room.find({booked:true}).count()
+        res.send({result})
     }catch(error){
         console.log(error)
     }
