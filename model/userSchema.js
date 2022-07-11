@@ -5,7 +5,7 @@ const userSchema = mongoose.Schema({
         type: String
     },
     admin: Boolean,
-    userImg:String,
+    img:String,
     transactionId:String,
     roomBook:Boolean,
     phone:Number,

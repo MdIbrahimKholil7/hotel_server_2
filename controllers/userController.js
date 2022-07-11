@@ -87,8 +87,8 @@ exports.paymentGateway = async (req, res) => {
 exports.updateUserData=async(req,res)=>{
     console.log(req.body)
     try{
-        const {address,profession,phone,email}=req.body
-        const result=await User.updateOne({email},{$set:{address,profession,phone}},{ upsert: true, setDefaultsOnInsert: true })
+        const {address,profession,phone,email,img}=req.body
+        const result=await User.updateOne({email},{$set:{address,profession,phone,img}},{ upsert: true, setDefaultsOnInsert: true })
         res.send(result)
         console.log(result)
     }catch(error){
