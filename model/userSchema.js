@@ -11,9 +11,11 @@ const userSchema = mongoose.Schema({
     phone:Number,
     profession:String,
     address:String,
+    active:String,
+    name:String,
     date: {
         type: Date,
-        default: Date.now()
+        default: Date.now() 
     }
 })
 

@@ -23,9 +23,13 @@ exports.getUserData = async (req, res) => {
 // put user data 
 exports.userDataPut = async (req, res) => {
     try {
-
+        console.log(req.body)
         const email = req.body.email
-        const result = await User.findOneAndUpdate(email, { $set: { email } }, { upsert: true, setDefaultsOnInsert: true })
+        console.log(req.body)
+        const show=await User.find({email})
+        console.log(show)
+        const result = await User.findOneAndUpdate({email}, { $set: { email,active:'Inactive',name:req.body.name } }, { upsert: true, setDefaultsOnInsert: true })
+        console.log(result)
         const accessToken = jwt.sign({ email }, process.env.ACCESS_TOKEN, {
             expiresIn: '1d'
         })
@@ -44,7 +48,7 @@ exports.userBookedRoom = async (req, res) => {
         console.log(req.body)
         const details= req.body
         const {transactionId,roomDetails,email}=details
-        const result1=await User.updateOne({email}, { $set: { transactionId: details?.transactionId } }, { upsert: true, setDefaultsOnInsert: true })
+        const result1=await User.updateOne({email}, { $set: { transactionId: details?.transactionId,active:'Active' } }, { upsert: true, setDefaultsOnInsert: true })
         const result2=await Room.findByIdAndUpdate({_id:details?.roomDetails?._id},{$set:{booked:true,email}}, { upsert: true, setDefaultsOnInsert: true })
         const result3=await Order.updateOne({email},{$set:{transactionId,email,paid:true,roomType:roomDetails?.roomType}}, { upsert: true, setDefaultsOnInsert: true })
 
@@ -87,8 +91,30 @@ exports.paymentGateway = async (req, res) => {
 exports.updateUserData=async(req,res)=>{
     console.log(req.body)
     try{
-        const {address,profession,phone,email,img}=req.body
-        const result=await User.updateOne({email},{$set:{address,profession,phone,img}},{ upsert: true, setDefaultsOnInsert: true })
+        const {address,profession,phone,email,img,name}=req.body
+        const result=await User.updateOne({email},{$set:{address,profession,phone,img,name}},{ upsert: true, setDefaultsOnInsert: true })
+        res.send(result)
+        console.log(result)
+    }catch(error){
+        console.log(error)
+    }
+}
+
+//all user 
+exports.getAllUser=async(req,res)=>{
+    try{
+        const result=await User.find({})
+        res.send(result)
+    }catch(error){
+        console.log(error)
+    }
+}
+
+// delete single user 
+exports.deleteUser=async(req,res)=>{
+    try{
+        const id=req.body.id
+        const result=await User.deleteOne({_id:id})
         res.send(result)
         console.log(result)
     }catch(error){
