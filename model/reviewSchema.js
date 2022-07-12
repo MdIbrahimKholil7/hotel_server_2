@@ -5,6 +5,7 @@ const reviewSchema= mongoose.Schema({
     rating:Number,
     img:String,
     accepted:Boolean,
+    name:String,
     date:{
         type:Date,
         default:Date.now()

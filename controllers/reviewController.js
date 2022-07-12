@@ -12,3 +12,11 @@ exports.postReview = async (req, res) => {
         console.log(error)
     }
 }
+exports.getReview=async(req,res)=>{
+    try{
+        const result=await Review.find({})
+        res.send(result)
+    }catch(error){
+        console.log(error)
+    }
+}
