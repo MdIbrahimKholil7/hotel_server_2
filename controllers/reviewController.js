@@ -12,11 +12,24 @@ exports.postReview = async (req, res) => {
         console.log(error)
     }
 }
-exports.getReview=async(req,res)=>{
-    try{
-        const result=await Review.find({})
+exports.getReview = async (req, res) => {
+    try {
+        const result = await Review.find({})
         res.send(result)
-    }catch(error){
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+// update review 
+exports.updateReview = async (req, res) => {
+    try {
+        const id = req.body.id
+        console.log(id)
+        const result = await Review.findOneAndUpdate({ _id: id }, { $set: { accepted: true } }, { upsert: true, setDefaultsOnInsert: true })
+        res.send(result)
+
+    } catch (error) {
         console.log(error)
     }
 }
