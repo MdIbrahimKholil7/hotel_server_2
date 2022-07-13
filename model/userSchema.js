@@ -13,6 +13,7 @@ const userSchema = mongoose.Schema({
     address:String,
     active:String,
     name:String,
+    roomType:String,
     date: {
         type: Date,
         default: Date.now() 

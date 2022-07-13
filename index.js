@@ -6,6 +6,7 @@ const cors = require('cors');
 const roomsApi=require('./api/roomsApi.js')
 const userApi=require('./api/userApi.js')
 const reviewApi=require('./api/reviewApi')
+const orderApi=require('./api/orderApi')
 require('dotenv').config()
 
 // middleware 
@@ -35,7 +36,7 @@ run()
 app.use('/getRoom',roomsApi)
 app.use('/user',userApi)
 app.use('/review',reviewApi)
-
+app.use('/order',orderApi)
 app.get('/', async (req, res) => {
     res.send('Server running')
 })

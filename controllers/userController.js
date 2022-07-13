@@ -47,11 +47,16 @@ exports.userBookedRoom = async (req, res) => {
     try {
         console.log(req.body)
         const details= req.body
-        const {transactionId,roomDetails,email}=details
-        const result1=await User.updateOne({email}, { $set: { transactionId: details?.transactionId,active:'Active' } }, { upsert: true, setDefaultsOnInsert: true })
-        const result2=await Room.findByIdAndUpdate({_id:details?.roomDetails?._id},{$set:{booked:true,email}}, { upsert: true, setDefaultsOnInsert: true })
-        const result3=await Order.updateOne({email},{$set:{transactionId,email,paid:true,roomType:roomDetails?.roomType}}, { upsert: true, setDefaultsOnInsert: true })
+        const {transactionId,roomDetails,email,pending,name}=details
 
+        const result1=await User.updateOne({email}, { $set: { transactionId: details?.transactionId,active:'Active' } }, { upsert: true, setDefaultsOnInsert: true })
+
+        const result2=await Room.findByIdAndUpdate({_id:details?.roomDetails?._id},{$set:{booked:true,email}}, { upsert: true, setDefaultsOnInsert: true })
+
+        const order=new Order({transactionId,email,paid:true,roomType:roomDetails?.roomType,pending,name,img:roomDetails?.img})
+
+        // const result3=await Order.updateOne({email},{$set:{transactionId,email,paid:true,roomType:roomDetails?.roomType,pending,name,img:roomDetails?.img}}, { upsert: true, setDefaultsOnInsert: true })
+        const result3=await order.save()
         console.log('result 1',result1)
         console.log('result 2',result2)
         console.log('result 3',result3)
