@@ -78,7 +78,11 @@ exports.updateRoom = async (req, res) => {
 // post room 
 exports.postRoom = async (req, res) => {
     const room = new Room(req.body)
+    console.log(req.body)
     const result = await room.save()
+    res.send({result})
+    console.log(result)
+    
 }
 
 // get book room 

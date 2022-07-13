@@ -15,7 +15,7 @@ router.get('/getRoomByPagination',getRoomByPagination)
 // get search room 
 router.get('/room',verifyJwt,getSearchRoom)
 router.put('/room',updateRoom)
-router.post('/',postRoom)
+router.post('/post-room',postRoom)
 
 // get search room 
 router.get('/book-room',getBookRoom)

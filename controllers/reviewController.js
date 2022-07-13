@@ -33,3 +33,14 @@ exports.updateReview = async (req, res) => {
         console.log(error)
     }
 }
+
+// delete review 
+exports.deleteReview=async(req,res)=>{
+    try{
+        const id=req.body.id
+        const result=await Review.findOneAndDelete({_id:id})
+        res.send(result)
+    }catch(error){
+
+    }
+}
