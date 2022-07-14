@@ -6,6 +6,7 @@ const orderSchema = mongoose.Schema({
     roomType: String,
     name: String,
     img: String,
+    pending:Boolean,
     date: {
         type: Date,
         default: Date.now()

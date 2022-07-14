@@ -53,13 +53,9 @@ exports.userBookedRoom = async (req, res) => {
 
         const result2=await Room.findByIdAndUpdate({_id:details?.roomDetails?._id},{$set:{booked:true,email}}, { upsert: true, setDefaultsOnInsert: true })
 
+        // post order 
         const order=new Order({transactionId,email,paid:true,roomType:roomDetails?.roomType,pending,name,img:roomDetails?.img})
-
-        // const result3=await Order.updateOne({email},{$set:{transactionId,email,paid:true,roomType:roomDetails?.roomType,pending,name,img:roomDetails?.img}}, { upsert: true, setDefaultsOnInsert: true })
         const result3=await order.save()
-        console.log('result 1',result1)
-        console.log('result 2',result2)
-        console.log('result 3',result3)
         res.status(200).send(result1)
 
     } catch (error) {
@@ -122,6 +118,28 @@ exports.deleteUser=async(req,res)=>{
         const result=await User.deleteOne({_id:id})
         res.send(result)
         console.log(result)
+    }catch(error){
+        console.log(error)
+    }
+}
+
+// get admin 
+exports.getAdmin=async(req,res)=>{
+    try{
+        const email=req.query.email
+        const result=await User.find({email}).select('admin')
+        res.send(result)
+        console.log(result)
+    }catch(error){
+        console.log(error)
+    }
+}
+
+exports.updateOne=async(req,res)=>{
+    try{
+        const email=req.query.email
+        const result=await User.findOneAndUpdate({email},{$set:{admin:true}},{ upsert: true, setDefaultsOnInsert: true })
+        res.send(result)
     }catch(error){
         console.log(error)
     }

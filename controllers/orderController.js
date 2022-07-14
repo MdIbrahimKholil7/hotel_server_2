@@ -12,13 +12,21 @@ exports.getOrder = async (req, res) => {
 }
 
 exports.deleteOrder = async (req, res) => {
-    try{
-        const id=req.body.id
-        console.log(id)
-        const result=await Order.findOneAndDelete({_id:id})
-        console.log(result)
+    try {
+        const id = req.body.id
+        const result = await Order.findOneAndDelete({ _id: id })
         res.send(result)
-    }catch(error){
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+exports.updateOrder = async (req, res) => {
+    try {
+        const { _id } = req.body
+        const result = await Order.findOneAndUpdate({ _id }, { $set: { pending: true } }, { upsert: true, setDefaultsOnInsert: true })
+        console.log(result)
+    } catch (error) {
         console.log(error)
     }
 }
