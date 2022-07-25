@@ -35,12 +35,22 @@ exports.updateReview = async (req, res) => {
 }
 
 // delete review 
-exports.deleteReview=async(req,res)=>{
-    try{
-        const id=req.body.id
-        const result=await Review.findOneAndDelete({_id:id})
+exports.deleteReview = async (req, res) => {
+    try {
+        const id = req.body.id
+        const result = await Review.findOneAndDelete({ _id: id })
         res.send(result)
-    }catch(error){
+    } catch (error) {
 
+    }
+}
+
+// accepted review 
+exports.acceptedReview = async (req, res) => {
+    try {
+        const result=await Review.find({accepted:true})
+        res.send(result)
+    } catch (error) {
+        console.log(error)
     }
 }
