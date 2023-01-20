@@ -28,7 +28,7 @@ const run = async () => {
         console.log(error)
     }
 
-}
+}   
 
 run()
 

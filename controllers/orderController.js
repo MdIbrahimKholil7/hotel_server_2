@@ -30,3 +30,27 @@ exports.updateOrder = async (req, res) => {
         console.log(error)
     }
 }
+
+updateOrder = async (req, res) => {
+    try {
+
+
+        const a=req.params.id
+
+
+        const { _id } = req.body
+        const result = await Order.findOneAndUpdate({ _id }, { $set: { pending: true } }, { upsert: true, setDefaultsOnInsert: true })
+        console.log(result)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+
+
+
+
+
+
+

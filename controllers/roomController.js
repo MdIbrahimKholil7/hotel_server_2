@@ -31,6 +31,7 @@ exports.getRoomCount = async (req, res) => {
         console.log(err)
     }
 }
+
 //get all room
 exports.getRoomByPagination = async (req, res) => {
     try {
@@ -43,6 +44,7 @@ exports.getRoomByPagination = async (req, res) => {
         res.send({ status: 503, message: 'Server crush' })
     }
 }
+
 // get room by id 
 exports.getSingleRoom = async (req, res) => {
     try {
